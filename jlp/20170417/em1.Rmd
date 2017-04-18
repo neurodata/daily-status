@@ -1,0 +1,153 @@
+---
+title: "EM Algorithm"
+author: "Jesse Leigh Patsolic"
+output: 
+  html_document:
+    keep_md: false
+---
+
+```{r render, eval=FALSE, echo=FALSE}
+rm(list = ls())
+require(ggplot2)
+require(reshape2)
+require(foreach)
+require(doMC)
+registerDoMC(6)
+require(rmarkdown)
+rmarkdown::render("em1.Rmd")
+system('open em1.html')
+```
+
+## Data Setup
+
+```{r cc1}
+n <- 50
+N <- 2*n
+z <- c(rep(0,n), rep(1,n))
+
+mu0 <- c(-4,3)
+sig0 <- c(1,1)
+pii0 <- c(0.5,0.5)
+
+MCit <- 100 
+set.seed(317)
+
+xx <- foreach(i = 1:MCit) %dopar% {
+  set.seed(i)
+  rnorm(length(z), mean = mu0[z+1], sd = sig0[z+1])
+}
+
+d0 <- density(xx[[1]][z ==0])
+d1 <- density(xx[[1]][z ==1])
+plot(density(xx[[1]]), ylim=c(0,max(pii0)*max(d0$y, d1$y)), main = "")
+title("Black: pdf of true mixture, Green: class 0, Blue: class 1")
+lines(d0$x, d0$y*pii0[1], lty = 1, col = 'green')
+lines(d1$x, d1$y*pii0[2], lty = 1, col = 'blue')
+```
+
+# Initialization 
+```{r init}
+muI <- list(mu0)
+sigI <- list(sig0)
+piI <- list(pii0)
+```
+
+```{r rStuff, echo = FALSE}
+irk <- function(xj,i,k, piiN, muiN, sigiN){
+  ri <- 
+  (piiN[[i]][k] * dnorm(xj, mean = muiN[[i]][k], sd = sigiN[[i]][k])/
+  (piiN[[i]][1] * 
+   dnorm(xj, mean = muiN[[i]][1], sd = sigiN[[i]][1]) + 
+   piiN[[i]][2] * 
+   dnorm(xj, mean = muiN[[i]][2], sd = sigiN[[i]][2])))
+  
+  return(ri)
+}
+```
+
+
+```{r Mstuff}
+#x <- xx[[5]]
+out <- foreach(x = iter(xx[1:10])) %dopar% {
+  mui <- muI
+  sigi <- sigI
+  pii <- piI
+  MAXIT <- 1e3
+  metTol <- FALSE
+  maxit <- FALSE
+  it <- 1
+  
+  while(!maxit & !metTol){
+    v0r1 <- sapply(x, function(x){ irk(x,it,1, pii, mui, sigi) })
+    v0r2 <- sapply(x, function(x){ irk(x,it,2, pii, mui, sigi) })
+  
+    piihat <- sum(sapply(x, function(x){ irk(x,it,2, pii, mui, sigi) }))/N
+  
+    muhat <- c(sum(v0r1 * x)/sum(v0r1),
+               sum(v0r2 * x)/sum(v0r2)
+               )
+  
+    if(any(x == muhat)){
+      print("nudging muhat")
+      muhat + runif(2, min = 0.01, max = 0.05)
+    }
+  
+    sighat <- c(sum((v0r1 * (x - mui[[it]][1])^2)/sum(v0r1)),
+                sum((v0r2 * (x - mui[[it]][2])^2)/sum(v0r2)))
+  
+    if(any(sighat <= 5*.Machine$double.eps)) stop("SD has gone to 0!!!")
+  
+    pitol <- all(abs(piihat - pii[[it]]) <= 1e-5)
+    mutol <- all(abs(muhat - mui[[it]]) <= 1e-5)
+    sigtol <- all(abs(sighat - sigi[[it]]) <= 1e-5)
+  
+    pii[[(it + 1)]] <- c(piihat, 1 - piihat)
+    mui[[(it + 1)]] <- muhat
+    sigi[[(it + 1)]] <- sighat
+  
+    metTol <- all(mutol && sigtol && pitol)
+    it <- it + 1 
+    maxit <- (it >= MAXIT)
+  }
+  Zhat <- apply(cbind(v0r1, v0r2), 1, which.max)
+  out <- list(pihat = pii[[length(pii)]], muhat = mui[[length(mui)]],
+              sighat = sigi[[length(sigi)]], Zhat = Zhat)
+}
+```
+
+
+```{r results, results = 'hold', fig.width = 9}
+pihats <- Reduce(rbind, lapply(out, '[[', 1))
+muhats <- Reduce(rbind, lapply(out,'[[',2))
+sighats <- Reduce(rbind, lapply(out,'[[', 3))
+
+d1 <- data.frame(pihat1 = pihats[,1], pihat2 = pihats[,2],
+           mu1 = muhats[,1], 
+           mu2 = muhats[,2], 
+           sig1 = sighats[,1],
+           sig2 = sighats[,2])
+
+md1 <- melt(d1)
+d0 <- data.frame(pihat1 = piI[[1]][1], pihat2 = piI[[1]][2],
+                 mu1= mu0[1], mu2 = mu0[2], 
+                 sig1 = sig0[1], sig2 = sig0[2])
+md0 <- melt(d0)
+
+#gg <- ggplot(md1, aes(variable, value)) + 
+#  geom_boxplot() +
+#  geom_point(data = md0, aes(variable, value), 
+#             shape = 3, color = 'red') + 
+#  #facet_grid(variable ~ ., ) +
+#  coord_flip()
+#
+#gg
+
+gg2 <- ggplot(md1, aes(variable, value)) + 
+  geom_boxplot() +
+  geom_point(data = md0, aes(variable, value), 
+             shape = 3, color = 'red') + 
+  facet_grid(. ~ variable, scales = "free") +
+  coord_flip()
+
+print(gg2)
+```

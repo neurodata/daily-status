@@ -1,0 +1,29 @@
+# MEDA TimeTest sample size 1e4
+>   genData(dat, ccol, outdir, basedir)
+[1] "Running mlocation"
+   user  system elapsed 
+  0.014   0.002   0.016 
+[1] "Running d1heat"
+   user  system elapsed 
+  0.186   0.003   0.188 
+[1] "Running cumvar"
+   user  system elapsed 
+  0.015   0.001   0.019 
+[1] "Running outliers"
+   user  system elapsed 
+137.767   3.104 141.898 
+[1] "Running hmc"
+   user  system elapsed 
+409.052   2.137 412.448 
+[1] "Running pairHex"
+   user  system elapsed 
+  0.011   0.000   0.011 
+[1] "Running correlation"
+   user  system elapsed 
+  0.004   0.000   0.006 
+[1] "Running Heatmap"
+[..... output truncated ..... ]
+Stack space overflow: current size 33624 bytes.
+Use `+RTS -Ksize -RTS' to increase it.
+Error: pandoc document conversion failed with error 2
+Timing stopped at: 853.454 43.402 899.666 

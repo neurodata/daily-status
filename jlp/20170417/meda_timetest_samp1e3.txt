@@ -1,0 +1,26 @@
+# MEDA TimeTest sample size 1e3
+>   genData(dat, ccol, outdir, basedir)
+[1] "Running mlocation"
+   user  system elapsed 
+  0.010   0.000   0.011 
+[1] "Running d1heat"
+   user  system elapsed 
+  0.020   0.000   0.019 
+[1] "Running cumvar"
+   user  system elapsed 
+   0.02    0.00    0.02 
+[1] "Running outliers"
+   user  system elapsed 
+   3.37    0.03    3.41 
+[1] "Running hmc"
+   user  system elapsed 
+582.410   0.060 582.408 
+[1] "Running pairHex"
+   user  system elapsed 
+  0.010   0.000   0.005 
+[1] "Running correlation"
+   user  system elapsed 
+  0.000   0.000   0.001 
+[1] "Running heatmap"
+   user  system elapsed 
+ 18.667   0.736  19.427 
