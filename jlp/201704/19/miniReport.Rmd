@@ -1,0 +1,59 @@
+---
+title: "Daily Status 20170419"
+author: "Jesse Leigh Patsolic"
+output: 
+  html_document:
+    keep_md: true
+---
+
+```{r render, eval=FALSE, echo=FALSE}
+require(reshape2)
+require(gridExtra)
+require(ggplot2)
+require(rmarkdown)
+rmarkdown::render("miniReport.Rmd")
+system('open miniReport.html')
+```
+
+## Accomplishments 
+- ran meda time tests
+- started on ROC curves
+
+```{r c1, echo = FALSE}
+load("~/neurodata/meda/examples/tout.RData")
+m <- as.matrix(tout)
+rownames(m) <- NULL
+d1 <- data.frame(m)
+m1 <- cbind(melt(d1), sampleSize = seq(1e3,1e4,by = 1e3))
+```
+
+## MEDA timing plots run on MARCC
+
+```{r timePlots, fig.height = 8}
+gg1 <- ggplot(m1, aes(x = sampleSize, y = value, color = variable)) +
+  scale_x_continuous(breaks = seq(1e3,1e4,1e3)) +
+  geom_point() + 
+  geom_line()
+
+gg2 <- ggplot(m1, aes(x = sampleSize, y = value, color = variable)) +
+  scale_x_continuous(breaks = seq(1e3,1e4,1e3)) +
+  scale_y_log10() + 
+  geom_point() + 
+  geom_line() + 
+  ggtitle("Log10 scale")
+
+grid.arrange(gg1, gg2)
+```
+
+
+### [ROC Curves for IB and IHC](./ROC.html)
+NB: the plots I showed in my office weren't exactly right, I forgot to
+split up the different response variables after melting the data.frame.
+
+## Next Steps
+- ROC Images for NeuroMab data
+- nicely formatted plots for meda (html or rmarkdown) just for showing
+  plots not for doing any computing.
+
+
+
