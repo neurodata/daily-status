@@ -16,7 +16,9 @@ render('index.Rmd')
 system('open index.html')
 ```
 
-### [20170417](./20170417/miniReport.html)
+## 201704
+##### [18](./201704/18/miniReport.html)
+##### [17](./201704/17/miniReport.html)
 
 
 

@@ -1,0 +1,33 @@
+---
+title: "Daily Status 20170418"
+author: "Jesse Leigh Patsolic"
+output: 
+  html_document:
+    keep_md: true
+---
+
+```{r render, eval=FALSE, echo=FALSE}
+require(rmarkdown)
+rmarkdown::render("./miniReport.Rmd")
+system('open miniReport.html')
+```
+
+## Updates
+
+- The docker image of meda is now on docker hub [here](https://hub.docker.com/r/neurodata/meda/).
+
+- Added getElbows to the meda package.
+- Cleaned up some unnecessary package dependencies.
+- Added truncation functionality to d1heatmaps. 
+- Started on outliers with plotly.
+- Sorted all labels in plots in the same direction.
+- Chatted with Greg about using docker and AWS.
+- Looked briefly at the proteomics data; started a script to tidy and
+  format the data for meda.
+
+## Stuff for 20170419 
+
+- Write a profile script for meda with `seq(1e3,1e4,by = 1e3)` sample points.
+- NeuroMab ROC curves and images.
+
+
