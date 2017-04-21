@@ -1,0 +1,22 @@
+---
+title: "Daily Status 20170421"
+author: "Jesse Leigh Patsolic"
+output: 
+  html_document:
+    keep_md: true
+---
+
+```{r render, eval=FALSE, echo=FALSE}
+rmarkdown::render("miniReport.Rmd")
+system('open miniReport.html')
+```
+
+## Accomplishments 
+- [Added ROC image plots and markers for optimal.](./ROC.html)
+
+
+
+## Next steps
+- Work on mining Weiler data for synapse features from Anish's
+  locations.
+- SIMPLEX reporting 

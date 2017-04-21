@@ -1,0 +1,33 @@
+---
+title: "Daily Status 20170420"
+author: "Jesse Leigh Patsolic"
+output: 
+  html_document:
+    keep_md: true
+---
+
+```{r render, eval=FALSE, echo=FALSE}
+require(reshape2)
+require(gridExtra)
+require(ggplot2)
+require(rmarkdown)
+rmarkdown::render("miniReport.Rmd")
+system('open miniReport.html')
+```
+
+## Accomplishments 
+- [Added AUC to the ROC curve plots.](./ROC.html)
+- started on ROC images.
+
+### ROC Image idea
+Given the scatterplot of Cell/Protein points colored by IHC, 
+compute the Sensitivity and Specificity for the classifier defined by   
+g_n(x) = 1 if Protein > a and Cell > b   
+g_n(x) = 0 otherwise.   
+
+For a sensible discritization of the plane.
+
+
+
+I think this is what we're after. Right?
+
