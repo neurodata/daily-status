@@ -8,8 +8,8 @@ output:
 
 ```{r render, eval=FALSE, echo=FALSE}
 require(rmarkdown)
-rmarkdown::render("blankReport.Rmd")
-system('open blankReport.html')
+rmarkdown::render("miniReport.Rmd")
+system('open miniReport.html')
 ```
 
 ## Commitments
