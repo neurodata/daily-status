@@ -1,0 +1,41 @@
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+
+## Vim generated files
+.*.swp
+.*.swo
+.*.swn
+*.project.vim
+*_aux
+
+
+## Bibliography auxiliary files (bibtex/biblatex/biber):
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.brf
+*.run.xml
+
+## Build tool auxiliary files:
+*.fdb_latexmk
+*.synctex
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+# R
+*.Rmd
+*.md
+*.RData
+*.Rdata
+*.rdata
+*.Rhistory
+
