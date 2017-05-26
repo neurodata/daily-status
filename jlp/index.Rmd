@@ -16,13 +16,13 @@ render('index.Rmd')
 system('open index.html')
 ```
 
-# [May 2017](./201705/23/miniReport.html)
+# [May 2017](./201705/26/miniReport.html)
 | Mo | Tu | We | Th | Fr |
 |----|----|----|----|----|
 | [01](./201705/01/miniReport.html) | [02](./201705/02/miniReport.html) | [03](./201705/03/miniReport.html)| [04](./201705/04/miniReport.html)| [05](./201705/05/miniReport.html) |
 | [08](./201705/08/miniReport.html) | [09](./201705/09/miniReport.html) | [10](./201705/09/miniReport.html)| [11](./201705/11/miniReport.html)| [12](./201705/12/miniReport.html) |
 | [15](./201705/15/miniReport.html) | 16 | [17](./201705/17/miniReport.html)| 18 | [19](./201705/19/miniReport.html) |
-| 22 | [23](./201705/23/miniReport.html) | [24](./201705/24/miniReport.html) | 25 | 26 |
+| 22 | [23](./201705/23/miniReport.html) | [24](./201705/24/miniReport.html) | 25 | [26](./201705/26/miniReport.html) |
 
 ---- 
 
