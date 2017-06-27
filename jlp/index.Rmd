@@ -16,11 +16,12 @@ render('index.Rmd')
 system('open index.html')
 ```
 
-# [June 2017](./201706/21/miniReport.html)
+# [June 2017](./201706/27/miniReport.html)
 | Mo | Tu | We | Th | Fr |
 |----|----|----|----|----|
 | 12 | [13](./201706/13/miniReport.html) | 14 | 15 | 16 |
 | 19 | 20 | [21](./201706/21/miniReport.html) | 22 | 23 |
+| 26 | [27](./201706/27/miniReport.html) | 28 | 29 | 30 |
 
 
 ## [May 2017](./201705/30/miniReport.html)
